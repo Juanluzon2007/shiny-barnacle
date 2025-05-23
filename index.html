@@ -1,0 +1,38 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una Pregunta Importante</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <script type="importmap">
+    {
+      "imports": {
+        "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.module.mjs"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="main-container">
+        <h1 id="main-question">Nicol, <span class="highlight-name">¿quieres ser mi madrina de graduación?</span> 🎓</h1>
+        
+        <div id="proposal-content">
+            <!-- <div class="image-placeholder"> Optional: A cute image here -->
+            </div> -->
+            <div class="buttons-container">
+                <button id="yes-button">¡Sí, acepto! 🎉</button>
+                <button id="no-button">No</button>
+            </div>
+        </div>
+
+        <div id="thank-you-container" class="hidden">
+            <h2>¡Wooooo! ¡Qué emoción! 🥳</h2>
+            <p>Muchísimas gracias por aceptar, Nicol. Significa el mundo para mí que seas mi madrina. Tu apoyo es invaluable y estoy muy feliz de que compartas este momento tan especial conmigo. ¡Prepárate para celebrar! 💖✨</p>
+            <img src="celebration.png" alt="Celebración" class="celebration-image"/>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

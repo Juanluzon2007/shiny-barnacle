@@ -1,38 +1,212 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Una Pregunta Importante</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
-    <script type="importmap">
-    {
-      "imports": {
-        "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.module.mjs"
-      }
-    }
-    </script>
+    <title>¡Feliz Cumpleaños, Mamá!</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Google Fonts para una fuente cursiva/manuscrita -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados para la fuente y la animación */
+        body {
+            font-family: 'Dancing Script', cursive; /* Aplica la fuente cursiva */
+            background-color: #fce4ec; /* Un rosa muy suave y cálido */
+            color: #880e4f; /* Un tono de rosa más oscuro para el texto */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Asegura que ocupe al menos toda la altura de la pantalla */
+            margin: 0;
+            padding: 20px; /* Padding para evitar que el contenido toque los bordes en móviles */
+            box-sizing: border-box;
+            /* Se ha eliminado 'overflow: hidden;' de aquí para permitir el scroll del body */
+        }
+        .card-container {
+            background-color: #ffffff; /* Fondo blanco para la tarjeta */
+            border-radius: 20px; /* Bordes redondeados */
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            text-align: center;
+            max-width: 90%; /* Ancho máximo para la tarjeta */
+            width: 800px; /* Ancho preferido en pantallas grandes */
+            position: relative;
+            max-height: 90vh; /* Limita la altura de la tarjeta para que quepa en la pantalla */
+            overflow-y: auto; /* Permite el scroll vertical dentro de la tarjeta si el contenido es muy largo */
+        }
+        .message {
+            white-space: pre-wrap; /* Mantiene los saltos de línea y espacios del texto */
+            overflow: hidden; /* Oculta el texto que aún no se ha "escrito" */
+            border-right: .15em solid #880e4f; /* Cursor parpadeante */
+            animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+            font-size: 1.5rem; /* Tamaño de fuente por defecto */
+            line-height: 1.6;
+            margin: 0 auto; /* Centra el texto */
+            max-width: 100%; /* Asegura que el texto no se desborde */
+        }
+
+        /* Animación de máquina de escribir */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Animación del cursor parpadeante */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #880e4f; }
+        }
+
+        /* Estilos para el botón de música */
+        .music-button {
+            background-color: #ff80ab; /* Un rosa más vibrante */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .music-button:hover {
+            background-color: #e91e63; /* Rosa más oscuro al pasar el ratón */
+            transform: translateY(-2px);
+        }
+
+        /* Media queries para responsividad con Tailwind CSS */
+        @media (min-width: 640px) { /* sm */
+            .message {
+                font-size: 1.8rem;
+            }
+            .card-container {
+                padding: 50px;
+            }
+        }
+        @media (min-width: 768px) { /* md */
+            .message {
+                font-size: 2.2rem;
+            }
+            .card-container {
+                padding: 60px;
+            }
+        }
+        @media (min-width: 1024px) { /* lg */
+            .message {
+                font-size: 2.5rem;
+            }
+            .card-container {
+                padding: 70px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="main-container">
-        <h1 id="main-question">Nicol, <span class="highlight-name">¿quieres ser mi madrina de graduación?</span> 🎓</h1>
-        
-        <div id="proposal-content">
-            <!-- <div class="image-placeholder"> Optional: A cute image here -->
-            </div> -->
-            <div class="buttons-container">
-                <button id="yes-button">¡Sí, acepto! 🎉</button>
-                <button id="no-button">No</button>
-            </div>
-        </div>
+    <div class="card-container">
+        <div id="message" class="message"></div>
 
-        <div id="thank-you-container" class="hidden">
-            <h2>¡Wooooo! ¡Qué emoción! 🥳</h2>
-            <p>Muchísimas gracias por aceptar, Nicol. Significa el mundo para mí que seas mi madrina. Tu apoyo es invaluable y estoy muy feliz de que compartas este momento tan especial conmigo. ¡Prepárate para celebrar! 💖✨</p>
-            <img src="celebration.png" alt="Celebración" class="celebration-image"/>
-        </div>
+        <!-- Controles de audio -->
+        <audio id="background-music" loop>
+            <!--
+                IMPORTANTE: Reemplaza 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+                con la URL real de tu archivo MP3.
+                Puedes subir tu archivo MP3 a un servicio de alojamiento de archivos
+                (como Google Drive, Dropbox, etc.) y obtener un enlace directo que sea públicamente accesible.
+                Asegúrate de que el enlace sea válido y directo al archivo de audio.
+            -->
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+        <button id="toggle-music" class="music-button">
+            Reproducir Música
+        </button>
     </div>
 
-    <script type="module" src="script.js"></script>
+    <script>
+        const messageElement = document.getElementById('message');
+        const backgroundMusic = document.getElementById('background-music');
+        const toggleMusicButton = document.getElementById('toggle-music');
+
+        // Mensaje para tu mamá
+        const fullMessage = `Mami querida,
+
+Hoy es tu día, y aunque no hay palabras que alcancen, quiero intentar decirte cuánto te amo.
+Gracias por tu amor incondicional, por tus abrazos que curan, por tu paciencia infinita y por cada sacrificio que has hecho por mí.
+Eres mi ejemplo, mi fuerza, mi refugio.
+A veces no te lo digo, pero cada cosa buena que hay en mí tiene tus huellas.
+Si pudiera darte el mundo, lo haría… pero hoy te entrego lo que tengo: mi gratitud, mi amor y esta carta sencilla, escrita desde lo más profundo de mi alma.
+Feliz cumpleaños, mamá.
+
+Que la vida te devuelva en alegría todo lo que tú me das cada día.
+Siempre tu hijo,
+Juan`;
+
+        let charIndex = 0;
+        let isMusicPlaying = false;
+
+        // Función para la animación de máquina de escribir
+        function typeWriter() {
+            if (charIndex < fullMessage.length) {
+                messageElement.textContent += fullMessage.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 50); // Velocidad de escritura (50ms por carácter)
+            } else {
+                // Una vez que el mensaje ha terminado de escribirse,
+                // podemos quitar el cursor parpadeante si lo deseamos
+                messageElement.style.borderRight = 'none';
+            }
+        }
+
+        // Función para controlar la reproducción de la música
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+                toggleMusicButton.textContent = 'Reproducir Música';
+            } else {
+                backgroundMusic.play().catch(error => {
+                    console.error("Error al intentar reproducir la música automáticamente:", error);
+                    // Informar al usuario que necesita interactuar para reproducir
+                    // En muchos navegadores, la reproducción automática sin interacción está bloqueada.
+                    // El usuario tendrá que hacer clic en el botón.
+                });
+                toggleMusicButton.textContent = 'Pausar Música';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // Iniciar la animación de máquina de escribir cuando la página carga
+        window.onload = () => {
+            typeWriter();
+            // Intentar reproducir la música al cargar, pero es probable que necesite interacción del usuario
+            // backgroundMusic.play().catch(error => {
+            //     console.error("La reproducción automática de música fue bloqueada:", error);
+            //     toggleMusicButton.textContent = 'Reproducir Música (requiere clic)';
+            // });
+        };
+
+        // Event listener para el botón de música
+        toggleMusicButton.addEventListener('click', toggleMusic);
+
+        // Ajustar el tamaño de la fuente del mensaje en función del ancho del contenedor
+        // Esto es una mejora para asegurar que el texto se vea bien en diferentes tamaños
+        function adjustFontSize() {
+            const containerWidth = messageElement.offsetWidth;
+            if (containerWidth < 400) {
+                messageElement.style.fontSize = '1.2rem';
+            } else if (containerWidth < 600) {
+                messageElement.style.fontSize = '1.5rem';
+            } else if (containerWidth < 800) {
+                messageElement.style.fontSize = '1.8rem';
+            } else {
+                messageElement.style.fontSize = '2.2rem';
+            }
+        }
+
+        // Llamar a adjustFontSize al cargar y al redimensionar la ventana
+        window.addEventListener('resize', adjustFontSize);
+        adjustFontSize(); // Llamar una vez al cargar para establecer el tamaño inicial
+    </script>
 </body>
 </html>
